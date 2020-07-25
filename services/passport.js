@@ -37,8 +37,10 @@ passport.use(
       // the user in done function is passed to serializeUser
       User.findOne({ googleId: profile.id }).then((existingUser) => {
         if (existingUser) {
+          console.log('existingUser: ', existingUser);
           done(null, existingUser);
         } else {
+          console.log('creating new user: ', profile.id);
           new User({ googleId: profile.id })
             .save()
             .then((user) => done(null, user));
