@@ -34,6 +34,7 @@ passport.use(
     // this is the accessToken we get as a reply from Google
     (accessToken, refreshToken, profile, done) => {
       console.log('Recieved user: ', profile.id);
+
       // the user in done function is passed to serializeUser
       User.findOne({ googleId: profile.id }).then((existingUser) => {
         if (existingUser) {
