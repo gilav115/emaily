@@ -12,10 +12,13 @@ module.exports = (app) => {
   // the callback that google strategy would execute upon authentication
   // to this url Google would attache a code (accessToken)
   // passport sees the code and automatically performs user info exchange with Google
-  app.get('/auth/google/callback', (req, res) => {
-    passport.authenticate('google');
-    res.send('you are logged in!');
-  });
+  app.get(
+    '/auth/google/callback',
+    passport.authenticate('google'),
+    (req, res) => {
+      res.send('you are logged in!');
+    }
+  );
 
   // req.logout is attached to the req object by passport
   // it resets the cookie
