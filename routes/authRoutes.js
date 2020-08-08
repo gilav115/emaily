@@ -16,7 +16,7 @@ module.exports = (app) => {
     '/auth/google/callback',
     passport.authenticate('google'),
     (req, res) => {
-      res.send('you are logged in!');
+      res.redirect('/surveys');
     }
   );
 
@@ -24,11 +24,11 @@ module.exports = (app) => {
   // it resets the cookie
   app.get('/api/logout', (req, res) => {
     req.logout();
-    res.send('you are logged out!');
+    res.redirect('/');
   });
 
+  // current logged-in user
   app.get('/api/current_user', (req, res) => {
-    console.log(req.user);
     res.send(req.user);
   });
 };

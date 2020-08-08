@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 
 // we only require mongoose models once
@@ -13,6 +14,10 @@ require('./services/passport');
 mongoose.connect(keys.mongoURI);
 
 const app = express();
+
+// body-parser is an express middleware
+// so we need wire it to express via the app.use call
+app.use(bodyParser.json());
 
 // takes the cookie data and assigns it to req.session
 // this is the data passport uses to deserializeUser etc.
@@ -26,6 +31,20 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./routes/authRoutes')(app);
+require('./routes/billingRoutes')(app);
+
+if (process.env.NODE_ENV == 'production') {
+  // make sure express serve up production assests, e.g. main.js, main.css
+  // upon "npm run build" (in client folder) files will be in client -> build folder
+  app.use(express.static('client/build'));
+
+  // if a request is made to a route express doesn't know (e.g. /surveys)
+  // make sure express serve up index.html file from our client side
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 // process.env.PORT => by heroku
 const PORT = process.env.PORT || 5000;
