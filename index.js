@@ -9,9 +9,10 @@ const keys = require('./config/keys');
 // every time we require a model mongoose would attetmp to create the modeul - so, in other places we require it differently
 // (e.g. passport.js)
 require('./models/User');
+require('./models/Survey');
 require('./services/passport');
 
-mongoose.connect(keys.mongoURI);
+mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use(passport.session());
 
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 if (process.env.NODE_ENV == 'production') {
   // make sure express serve up production assests, e.g. main.js, main.css

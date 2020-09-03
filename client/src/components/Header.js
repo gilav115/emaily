@@ -4,40 +4,30 @@ import { Link } from 'react-router-dom';
 import Payments from './Payments';
 
 class Header extends Component {
-  logInGoogle() {
-    return (
-      <li>
-        <a href='/auth/google'>Log in with Google</a>
-      </li>
-    );
-  }
-
-  // auth == user, as defined in mapStateToProps
-  loggedIn() {
-    return [
-      <li key={0}>
-        <Payments />
-      </li>,
-      <li key={1} style={{ margin: '0 10px' }}>
-        Credits: {this.props.auth.credits}
-      </li>,
-      <li key={2}>
-        <a href='/api/logout'>Logout</a>
-      </li>,
-    ];
-  }
-
   renderContent() {
     switch (this.props.auth) {
       case null:
         return;
       case false:
-        return this.logInGoogle();
+        return (
+          <li>
+            <a href='/auth/google'>Login With Google</a>
+          </li>
+        );
       default:
-        return this.loggedIn();
+        return [
+          <li key='1'>
+            <Payments />
+          </li>,
+          <li key='3' style={{ margin: '0 10px' }}>
+            Credits: {this.props.auth.credits}
+          </li>,
+          <li key='2'>
+            <a href='/api/logout'>Logout</a>
+          </li>,
+        ];
     }
   }
-
   render() {
     return (
       <nav>
@@ -48,9 +38,7 @@ class Header extends Component {
           >
             Emaily
           </Link>
-          <ul id='nav-mobile' className='right hide-on-med-and-down'>
-            {this.renderContent()}
-          </ul>
+          <ul className='right'>{this.renderContent()}</ul>
         </div>
       </nav>
     );
