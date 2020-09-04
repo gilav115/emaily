@@ -32,7 +32,7 @@ module.exports = (app) => {
       await survey.save();
 
       req.user.credits -= 1;
-      const user = req.user.save();
+      const user = await req.user.save();
 
       res.send(user);
     } catch (err) {
