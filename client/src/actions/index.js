@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER, FETCH_SURVEYS, DELETE_SURVEY } from './types';
+import { FETCH_USER, FETCH_SURVEYS } from './types';
 
 // This is an Action Creator. Usually it returns an Action.
 // An action should have a type and payload (at least)

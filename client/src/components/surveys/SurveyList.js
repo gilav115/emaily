@@ -19,9 +19,9 @@ class SurveyList extends Component {
               }
               style={{ marginRight: '5px' }}
               type='submit'
-              class='btn-floating btn waves-effect waves-light red'
+              className='btn-floating btn waves-effect waves-light red'
             >
-              <i class='material-icons'>delete</i>
+              <i className='material-icons'>delete</i>
             </button>
           </p>
           <div className='card-content'>

@@ -31,7 +31,20 @@ class SurveyForm extends Component {
           <Link to='/surveys' className='red btn-flat white-text'>
             Cancel
           </Link>
-          <button className='teal btn-flat right white-text' type='submit'>
+          <button
+            className='yellow darken-4 btn-flat white-text'
+            type='submit'
+            disabled={this.props.pristine || this.props.submitting}
+            onClick={this.props.reset}
+          >
+            reset
+            <i className='material-icons left'>clear</i>
+          </button>
+          <button
+            className='teal btn-flat right white-text'
+            type='submit'
+            disabled={this.props.pristine}
+          >
             Next
             <i className='material-icons right'>done</i>
           </button>
