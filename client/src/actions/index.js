@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER, FETCH_SURVEYS } from './types';
+import { FETCH_USER, FETCH_SURVEYS, DELETE_SURVEY } from './types';
 
 // This is an Action Creator. Usually it returns an Action.
 // An action should have a type and payload (at least)
@@ -34,4 +34,11 @@ export const fetchSurveys = () => async (dispatch) => {
   const res = await axios.get('/api/surveys');
 
   dispatch({ type: FETCH_SURVEYS, payload: res.data });
+};
+
+export const deleteSurvey = (surveyId, history) => async (dispatch) => {
+  await axios.delete(`/api/survey/delete/${surveyId}`);
+
+  dispatch(fetchSurveys());
+  history.push('/surveys');
 };
